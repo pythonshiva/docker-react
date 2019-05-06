@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    build:
+      context: . #Here the . points the current working directory as the context
+      dockerfile: Dockerfile.dev # Here we are pointing the docker file name
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
+
