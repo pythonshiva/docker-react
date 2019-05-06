@@ -7,3 +7,16 @@ before_install:
 
 script:
   - docker run -e CI=true docker-react-image npm run test -- --watchAll=false --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: <get the region from the app crated in elasticbeanstalk in aws>
+  app: <name of the app something like docker-react which was created in elasticbeanstalk>
+  env: <Environment will get created once we crate the EBS app in AWS>
+  bucket_name: <We can find the our app bucket name in S3 options, Get the name from there>
+  bucket_path: <usually our application name something like docker-react in AWS>
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
